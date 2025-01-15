@@ -4,7 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { View } from 'react-native';
 
-import { Colors } from '@/constants/Colors';
+import { globalStyles } from '@/styles/global-styles';
 
 const _layout = () => {
   const [loaded] = useFonts({
@@ -14,7 +14,7 @@ const _layout = () => {
     return null;
   }
   return (
-    <View style={{ backgroundColor: Colors.background, flex: 1 }}>
+    <View style={globalStyles.background}>
       <Slot />
 
       <StatusBar style="light" />
