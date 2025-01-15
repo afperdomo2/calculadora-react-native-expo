@@ -1,18 +1,14 @@
-import { globalStyles } from '@/styles/global-styles';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
+
+import ThemeText from '@/components/ThemeText';
+import { globalStyles } from '@/styles/global-styles';
 
 const CalculatorApp = () => {
   return (
     <View style={globalStyles.calculatorContainer}>
-      <Text
-        style={globalStyles.mainResult}
-        numberOfLines={1}
-        adjustsFontSizeToFit
-      >
-        50 x 50
-      </Text>
-      <Text style={globalStyles.subResult}>25000</Text>
+      <ThemeText>50 x 50</ThemeText>
+      <ThemeText variant="h2">25000</ThemeText>
     </View>
   );
 };

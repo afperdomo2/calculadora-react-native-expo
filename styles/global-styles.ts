@@ -16,7 +16,6 @@ export const globalStyles = StyleSheet.create({
     fontSize: 70,
     textAlign: 'right',
     fontWeight: '400',
-    // fontFamily: 'SpaceMono',
   },
   subResult: {
     color: Colors.textSecondary,
