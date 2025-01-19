@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { View } from 'react-native';
 
 import Button from '@/components/Button';
@@ -8,9 +7,8 @@ import { useCalculator } from '@/hooks/useCalculator';
 import { globalStyles } from '@/styles/global-styles';
 
 const CalculatorApp = () => {
-  const [count, setCount] = useState(10);
-
-  const { formula, buildNumber } = useCalculator();
+  const { formula, clean, tootleSign, removeLast, buildNumber } =
+    useCalculator();
 
   return (
     <View style={globalStyles.calculatorContainer}>
@@ -20,23 +18,18 @@ const CalculatorApp = () => {
       </View>
 
       <View style={globalStyles.calculatorRow}>
-        <Button
-          label="C"
-          color={Colors.lightGray}
-          blackText
-          onPress={() => setCount(count + 1)}
-        />
+        <Button label="C" color={Colors.lightGray} blackText onPress={clean} />
         <Button
           label="+/-"
           color={Colors.lightGray}
           blackText
-          onPress={() => console.log(1)}
+          onPress={tootleSign}
         />
         <Button
           label="del"
           color={Colors.lightGray}
           blackText
-          onPress={() => console.log(1)}
+          onPress={removeLast}
         />
         <Button
           label="÷"

@@ -18,6 +18,31 @@ export const useCalculator = () => {
     setFormula(number);
   }, [number]);
 
+  const clean = () => {
+    setNumber('0');
+    setPrevNumber('0');
+    setFormula('');
+    lastOperation.current = undefined;
+  };
+
+  const tootleSign = () => {
+    if (number.includes('-')) {
+      return setNumber(number.replace('-', ''));
+    }
+    setNumber(`-${number}`);
+  };
+
+  const removeLast = () => {
+    if (number.length === 1 || (number.length === 2 && number.includes('-'))) {
+      return setNumber('0');
+    }
+    const restNumber = number.slice(0, -1);
+    if (restNumber.endsWith('.')) {
+      return setNumber(restNumber.slice(0, -1));
+    }
+    setNumber(restNumber);
+  };
+
   const buildNumber = (numberString: string) => {
     console.log('🚀 ~ buildNumber ~ numberString:', numberString);
     // Si el número ya tiene un punto y se intenta agregar otro, no hacer nada
@@ -51,6 +76,9 @@ export const useCalculator = () => {
     number,
     prevNumber,
 
+    clean,
+    tootleSign,
+    removeLast,
     buildNumber,
   };
 };
