@@ -1,17 +1,22 @@
-import React from 'react';
+import { useState } from 'react';
 import { View } from 'react-native';
 
-import ThemeText from '@/components/ThemeText';
-import { globalStyles } from '@/styles/global-styles';
 import Button from '@/components/Button';
+import ThemeText from '@/components/ThemeText';
 import { Colors } from '@/constants/Colors';
+import { useCalculator } from '@/hooks/useCalculator';
+import { globalStyles } from '@/styles/global-styles';
 
 const CalculatorApp = () => {
+  const [count, setCount] = useState(10);
+
+  const { formula, buildNumber } = useCalculator();
+
   return (
     <View style={globalStyles.calculatorContainer}>
       <View style={{ paddingHorizontal: 30, paddingBottom: 20 }}>
-        <ThemeText>50 x 50</ThemeText>
-        <ThemeText variant="h2">25000</ThemeText>
+        <ThemeText>{formula}</ThemeText>
+        <ThemeText variant="h2">asd</ThemeText>
       </View>
 
       <View style={globalStyles.calculatorRow}>
@@ -19,7 +24,7 @@ const CalculatorApp = () => {
           label="C"
           color={Colors.lightGray}
           blackText
-          onPress={() => console.log(1)}
+          onPress={() => setCount(count + 1)}
         />
         <Button
           label="+/-"
@@ -41,9 +46,9 @@ const CalculatorApp = () => {
       </View>
 
       <View style={globalStyles.calculatorRow}>
-        <Button label="7" onPress={() => console.log(1)} />
-        <Button label="8" onPress={() => console.log(1)} />
-        <Button label="9" onPress={() => console.log(1)} />
+        <Button label="7" onPress={() => buildNumber('7')} />
+        <Button label="8" onPress={() => buildNumber('8')} />
+        <Button label="9" onPress={() => buildNumber('9')} />
         <Button
           label="x"
           color={Colors.orange}
@@ -52,9 +57,9 @@ const CalculatorApp = () => {
       </View>
 
       <View style={globalStyles.calculatorRow}>
-        <Button label="4" onPress={() => console.log(1)} />
-        <Button label="5" onPress={() => console.log(1)} />
-        <Button label="6" onPress={() => console.log(1)} />
+        <Button label="4" onPress={() => buildNumber('4')} />
+        <Button label="5" onPress={() => buildNumber('5')} />
+        <Button label="6" onPress={() => buildNumber('6')} />
         <Button
           label="-"
           color={Colors.orange}
@@ -63,9 +68,9 @@ const CalculatorApp = () => {
       </View>
 
       <View style={globalStyles.calculatorRow}>
-        <Button label="1" onPress={() => console.log(1)} />
-        <Button label="2" onPress={() => console.log(1)} />
-        <Button label="3" onPress={() => console.log(1)} />
+        <Button label="1" onPress={() => buildNumber('1')} />
+        <Button label="2" onPress={() => buildNumber('2')} />
+        <Button label="3" onPress={() => buildNumber('3')} />
         <Button
           label="+"
           color={Colors.orange}
@@ -74,8 +79,8 @@ const CalculatorApp = () => {
       </View>
 
       <View style={globalStyles.calculatorRow}>
-        <Button label="0" doubleSize onPress={() => console.log(1)} />
-        <Button label="." onPress={() => console.log(1)} />
+        <Button label="0" doubleSize onPress={() => buildNumber('0')} />
+        <Button label="." onPress={() => buildNumber('.')} />
         <Button
           label="="
           color={Colors.orange}

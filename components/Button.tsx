@@ -30,6 +30,7 @@ const Button = ({
       })}
       onPress={() => {
         Haptics.selectionAsync();
+        onPress();
       }}
     >
       <Text
