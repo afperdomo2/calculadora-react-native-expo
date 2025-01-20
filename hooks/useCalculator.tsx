@@ -15,7 +15,16 @@ export const useCalculator = () => {
   const lastOperation = useRef<Operation>();
 
   useEffect(() => {
-    setFormula(number);
+    if (lastOperation.current) {
+      const firstFormulaPart = formula.split(' ').at(0);
+      setFormula(`${firstFormulaPart} ${lastOperation.current} ${number}`);
+    } else {
+      setFormula(number);
+    }
+  }, [number]);
+
+  useEffect(() => {
+    // setFormula(number);
   }, [number]);
 
   const clean = () => {
@@ -43,8 +52,35 @@ export const useCalculator = () => {
     setNumber(restNumber);
   };
 
+  const setLastNumber = () => {
+    if (number.endsWith('.')) {
+      setPrevNumber(number.slice(0, -1));
+    }
+    setPrevNumber(number);
+    setNumber('0');
+  };
+
+  const divideOperation = () => {
+    setLastNumber();
+    lastOperation.current = Operation.DIVIDE;
+  };
+
+  const multiplyOperation = () => {
+    setLastNumber();
+    lastOperation.current = Operation.MULTIPLY;
+  };
+
+  const addOperation = () => {
+    setLastNumber();
+    lastOperation.current = Operation.ADD;
+  };
+
+  const subtractOperation = () => {
+    setLastNumber();
+    lastOperation.current = Operation.SUBTRACT;
+  };
+
   const buildNumber = (numberString: string) => {
-    console.log('🚀 ~ buildNumber ~ numberString:', numberString);
     // Si el número ya tiene un punto y se intenta agregar otro, no hacer nada
     if (number.includes('.') && numberString === '.') {
       return;
@@ -80,5 +116,10 @@ export const useCalculator = () => {
     tootleSign,
     removeLast,
     buildNumber,
+
+    divideOperation,
+    multiplyOperation,
+    addOperation,
+    subtractOperation,
   };
 };
