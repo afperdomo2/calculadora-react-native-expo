@@ -24,8 +24,9 @@ export const useCalculator = () => {
   }, [number]);
 
   useEffect(() => {
-    // setFormula(number);
-  }, [number]);
+    const subResult = calculateSubResult();
+    setPrevNumber(subResult.toString());
+  }, [formula]);
 
   const clean = () => {
     setNumber('0');
@@ -53,6 +54,7 @@ export const useCalculator = () => {
   };
 
   const setLastNumber = () => {
+    calculateResult();
     if (number.endsWith('.')) {
       setPrevNumber(number.slice(0, -1));
     }
@@ -73,6 +75,34 @@ export const useCalculator = () => {
   const addOperation = () => {
     setLastNumber();
     lastOperation.current = Operation.ADD;
+  };
+
+  const calculateSubResult = () => {
+    const [firstValue, operation, secondValue] = formula.split(' ');
+    const firstNumber = parseFloat(firstValue);
+    const secondNumber = parseFloat(secondValue);
+    if (isNaN(secondNumber)) {
+      return firstNumber;
+    }
+    switch (operation) {
+      case Operation.ADD:
+        return firstNumber + secondNumber;
+      case Operation.SUBTRACT:
+        return firstNumber - secondNumber;
+      case Operation.MULTIPLY:
+        return firstNumber * secondNumber;
+      case Operation.DIVIDE:
+        return firstNumber / secondNumber;
+      default:
+        throw new Error(`Invalid ${operation} operation`);
+    }
+  };
+
+  const calculateResult = () => {
+    const result = calculateSubResult();
+    setFormula(result.toString());
+    lastOperation.current = undefined;
+    setPrevNumber('0');
   };
 
   const subtractOperation = () => {
@@ -121,5 +151,7 @@ export const useCalculator = () => {
     multiplyOperation,
     addOperation,
     subtractOperation,
+    calculateSubResult,
+    calculateResult,
   };
 };
